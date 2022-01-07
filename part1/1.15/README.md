@@ -5,7 +5,7 @@ Link to docker hub: https://hub.docker.com/repository/docker/asianomainen/readin
 #### Pull the project from docker hub
 
 ```
-docker pull docker pull asianomainen/reading-tip-library:latest
+docker pull asianomainen/reading-tip-library:latest
 ``` 
 
 #### Run the application
