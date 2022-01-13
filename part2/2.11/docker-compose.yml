@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+
+  reading-tip-library:
+    build: .
+    command: poetry run invoke start
+    container_name: reading-tip-library
