@@ -1,0 +1,1 @@
+Removed port specification (5000) from docker-compose.yml backend REQUEST_ORIGIN environment variable.
