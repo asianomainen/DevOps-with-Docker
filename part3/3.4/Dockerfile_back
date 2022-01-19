@@ -1,0 +1,28 @@
+FROM golang:alpine AS build-env
+
+WORKDIR /app
+
+ADD . /app
+
+RUN cd /app && go build -o goapp
+
+
+FROM alpine
+
+WORKDIR /app
+
+ENV REQUEST_ORIGIN=http://localhost:5000
+
+EXPOSE 8080
+
+RUN apk update && \
+    apk add ca-certificates && \
+    rm -rf /var/cache/apk/* && \
+    adduser appuser --disabled-password && \
+    chown appuser /app
+
+COPY --from=build-env /app/goapp /app
+
+USER appuser
+
+ENTRYPOINT ./goapp
