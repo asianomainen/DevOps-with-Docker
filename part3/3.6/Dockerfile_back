@@ -1,0 +1,23 @@
+FROM golang:1.16-alpine3.14 AS build-env
+
+WORKDIR /app
+
+COPY . .
+
+RUN go build && \
+    adduser -D appuser && \
+    chown appuser /app
+
+USER appuser
+
+
+FROM scratch
+
+EXPOSE 8080
+
+ENV REQUEST_ORIGIN=http://localhost:5000
+
+COPY --from=build-env /app/server /server
+COPY --from=build-env /lib /lib
+
+CMD ["/server"]
