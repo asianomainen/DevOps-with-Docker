@@ -1,0 +1,15 @@
+FROM python:3.8-slim
+
+WORKDIR /usr/src/app
+
+RUN useradd -m appuser && \
+    chown appuser /usr/src/app && \
+    pip install poetry --no-cache-dir
+
+COPY data/ src/ poetry.lock pyproject.toml pytest.ini tasks.py /usr/src/app/
+
+RUN poetry install
+
+USER appuser
+
+CMD ["poetry", "run", "invoke", "start"]
